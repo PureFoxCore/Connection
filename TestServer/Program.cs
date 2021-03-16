@@ -1,4 +1,5 @@
 ﻿using System;
+using CSLogger;
 using Connection;
 
 namespace TestServer
@@ -7,7 +8,9 @@ namespace TestServer
     {
         static void Main(string[] args)
         {
-            
+            Logger.Trace("Starting Server...");
+
+            Server.Start();
         }
     }
 }

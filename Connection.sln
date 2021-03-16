@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient", "TestClient\Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connection", "Connection\Connection.csproj", "{78276595-FC23-43C2-9B4C-02F6D825BFE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLogger", "CSLogger\CSLogger.csproj", "{FDB53842-CAA7-42DA-86B3-6A5A105F92B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +60,17 @@ Global
 		{78276595-FC23-43C2-9B4C-02F6D825BFE8}.Release|x64.Build.0 = Release|Any CPU
 		{78276595-FC23-43C2-9B4C-02F6D825BFE8}.Release|x86.ActiveCfg = Release|Any CPU
 		{78276595-FC23-43C2-9B4C-02F6D825BFE8}.Release|x86.Build.0 = Release|Any CPU
+		{FDB53842-CAA7-42DA-86B3-6A5A105F92B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDB53842-CAA7-42DA-86B3-6A5A105F92B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDB53842-CAA7-42DA-86B3-6A5A105F92B2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FDB53842-CAA7-42DA-86B3-6A5A105F92B2}.Debug|x64.Build.0 = Debug|Any CPU
+		{FDB53842-CAA7-42DA-86B3-6A5A105F92B2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FDB53842-CAA7-42DA-86B3-6A5A105F92B2}.Debug|x86.Build.0 = Debug|Any CPU
+		{FDB53842-CAA7-42DA-86B3-6A5A105F92B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDB53842-CAA7-42DA-86B3-6A5A105F92B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDB53842-CAA7-42DA-86B3-6A5A105F92B2}.Release|x64.ActiveCfg = Release|Any CPU
+		{FDB53842-CAA7-42DA-86B3-6A5A105F92B2}.Release|x64.Build.0 = Release|Any CPU
+		{FDB53842-CAA7-42DA-86B3-6A5A105F92B2}.Release|x86.ActiveCfg = Release|Any CPU
+		{FDB53842-CAA7-42DA-86B3-6A5A105F92B2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

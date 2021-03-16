@@ -1,4 +1,5 @@
 ﻿using System;
+using CSLogger;
 using Connection;
 
 namespace TestClient
@@ -7,7 +8,7 @@ namespace TestClient
     {
         static void Main(string[] args)
         {
-            
+            Logger.Trace("Starting Client...");
         }
     }
 }

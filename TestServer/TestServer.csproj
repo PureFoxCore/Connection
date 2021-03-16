@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Connection\Connection.csproj" />
+    <ProjectReference Include="..\CSLogger\CSLogger.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
