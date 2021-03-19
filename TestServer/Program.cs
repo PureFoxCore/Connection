@@ -4,13 +4,15 @@ using Connection;
 
 namespace TestServer
 {
-    class Program
+    public class Program
     {
+        private static ServerTCP server;
+        
         static void Main(string[] args)
         {
             Logger.Trace("Starting Server...");
 
-            TcpServer.Start(8192, 20);
+            server.Start(8192, 20);
 
             Console.ReadKey();
         }

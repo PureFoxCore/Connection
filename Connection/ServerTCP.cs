@@ -5,25 +5,27 @@ using System.Net.Sockets;
 
 namespace Connection
 {
-    public class TcpServer
+    public class ServerTCP
     {
-        public static SClient[] Clients;
-        private static TcpListener serverSocket;
+        public SClient[] Clients;
+        private TcpListener serverSocket;
 
-        public static void Start(int port, int maxPlayers)
+        public void Start(int port, int maxPlayers)
         {
             Clients = new SClient[maxPlayers];
+            for (int i = 0; i < Clients.Length; i++)
+                Clients[i] = new SClient();
             serverSocket = new TcpListener(IPAddress.Any, port);
             serverSocket.Start();
             Logger.Info($"Server started on: {serverSocket.LocalEndpoint}");
-            serverSocket.BeginAcceptTcpClient(ClientConnectCallBack, null);
+            serverSocket.BeginAcceptTcpClient(ClientConnectCallback, null);
         }
 
-        private static void ClientConnectCallBack(IAsyncResult result)
+        private void ClientConnectCallback(IAsyncResult result)
         {
             TcpClient tempClient = serverSocket.EndAcceptTcpClient(result);
             Logger.Info("Player Succesfully connected");
-            serverSocket.BeginAcceptTcpClient(ClientConnectCallBack, null);
+            serverSocket.BeginAcceptTcpClient(ClientConnectCallback, null);
 
             for (int i = 0; i < Clients.Length; i++)
                 if (Clients[i].socket == null)
