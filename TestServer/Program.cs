@@ -10,7 +10,7 @@ namespace TestServer
         {
             Logger.Trace("Starting Server...");
 
-            TcpServer.Start(8192);
+            TcpServer.Start(8192, 20);
 
             Console.ReadKey();
         }
