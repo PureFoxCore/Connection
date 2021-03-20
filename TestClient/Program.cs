@@ -7,7 +7,7 @@ namespace TestClient
 {
     public class Program
     {
-        private static ClientTCP client;
+        private static ClientTCP client = new ClientTCP();
 
         static void Main(string[] args)
         {
@@ -16,6 +16,7 @@ namespace TestClient
             client.Connect(IPAddress.Parse("127.0.0.1"), 8192);
 
             Console.ReadKey();
+            client.CloseConnection();
         }
     }
 }

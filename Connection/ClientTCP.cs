@@ -62,5 +62,8 @@ namespace Connection
                 throw;
             }
         }
+
+        public void CloseConnection() =>
+            client.Close();
     }
 }

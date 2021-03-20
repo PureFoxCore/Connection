@@ -34,7 +34,7 @@ namespace Connection
                     Clients[i].ConnectionID = i;
                     Clients[i].ip = tempClient.Client.RemoteEndPoint.ToString();
                     Clients[i].Start();
-                    Logger.Info($"Connection recived from: {Clients[i].ip}.");
+                    Logger.Info($"Connection recived from: {Clients[i].ip}, ID: {i}.");
                     return;
                 }
         }
