@@ -17,6 +17,14 @@ namespace Connection
             readPosition = 0;
         }
 
+        public ByteBuffer(byte[] data)
+        {
+            Buffer = new List<byte>();
+            readPosition = 0;
+
+            WriteBytes(data);
+        }
+
         public byte[] ToArray { get => Buffer.ToArray(); }
         public int Count { get => Buffer.Count; }
         public int Length { get => Count - readPosition; }

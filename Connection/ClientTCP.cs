@@ -12,6 +12,9 @@ namespace Connection
         private byte[] asyncBuffer;
         public bool isConnected;
 
+        public delegate void DataHandler(ByteBuffer data);
+        public event DataHandler DataRecived;
+
         public void Connect(IPAddress address, int port)
         {
             Logger.Trace($"Attempting to connect [{address}:{port}]");
@@ -54,13 +57,32 @@ namespace Connection
         {
             try
             {
-                
+                int len = stream.EndRead(result);
+
+                byte[] recivedBytes = new byte[len];
+                Buffer.BlockCopy(asyncBuffer, 0, recivedBytes, 0, len);
+
+                if (len == 0)
+                {
+                    Logger.Error("disconnected");
+                    return;
+                }
+
+                if (DataRecived != null)
+                    DataRecived(new ByteBuffer(recivedBytes));
+
+                stream.BeginRead(asyncBuffer, 0, 8192, OnReciveDataCallback, null);
             }
             catch (Exception ex)
             {
                 Logger.Critical($"Can't recive data: {ex}");
                 throw;
             }
+        }
+
+        public void SendData(ByteBuffer data)
+        {
+            stream.BeginWrite(data.ToArray, 0, data.ToArray.Length, null, null);
         }
 
         public void CloseConnection() =>
