@@ -18,7 +18,7 @@ namespace Connection
             socket.ReceiveBufferSize = 4096;
             stream = socket.GetStream();
             readBuffer = new byte[4096];
-            stream.BeginRead(readBuffer, 0, socket.ReceiveBufferSize, ReciveDataCallback, null);
+            stream.BeginRead(readBuffer, 0, 4096, ReciveDataCallback, null);
         }
 
         private void ReciveDataCallback(IAsyncResult result)
@@ -33,7 +33,7 @@ namespace Connection
                 }
                 byte[] newBytes = new byte[readBytes];
                 Buffer.BlockCopy(readBuffer, 0, newBytes, 0, readBytes);
-                stream.BeginRead(readBuffer, 0, socket.ReceiveBufferSize, ReciveDataCallback, null);
+                stream.BeginRead(readBuffer, 0, 4096, ReciveDataCallback, null);
             }
             catch (Exception ex)
             {
