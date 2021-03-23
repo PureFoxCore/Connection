@@ -12,7 +12,7 @@ namespace Connection
         public NetworkStream stream;
         private byte[] readBuffer;
 
-        public delegate void DataHandler(int id, ByteBuffer data);
+        public delegate void DataHandler(SClient client, ByteBuffer data);
         public event DataHandler DataRecived;
         public delegate void ClientDisconnectedHandler(SClient client);
         public event ClientDisconnectedHandler ClientDisconnected;
@@ -40,7 +40,7 @@ namespace Connection
                 Buffer.BlockCopy(readBuffer, 0, newBytes, 0, readBytes);
 
                 if (DataRecived != null)
-                    DataRecived(ConnectionID, new ByteBuffer(newBytes));
+                    DataRecived(this, new ByteBuffer(newBytes));
                 
                 stream.BeginRead(readBuffer, 0, 4096, ReciveDataCallback, null);
             }
@@ -55,7 +55,6 @@ namespace Connection
         {
             Logger.Info($"Connection from {ip} terminated.");
             socket.Close();
-            socket = null;
 
             if (ClientDisconnected != null)
                     ClientDisconnected(this);

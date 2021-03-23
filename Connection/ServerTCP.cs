@@ -13,7 +13,7 @@ namespace Connection
         public delegate void OnClientHandler(SClient client);
         public event OnClientHandler ClientConnected;
 
-        public delegate void DataHandler(int id, ByteBuffer data);
+        public delegate void DataHandler(SClient client, ByteBuffer data);
         public event DataHandler DataRecived;
 
         public delegate void ClientDisconnectedHandler(SClient client);
@@ -58,15 +58,16 @@ namespace Connection
                     ClientDisconnected(client);
         }
 
-        private void OnData(int id, ByteBuffer data)
+        private void OnData(SClient client, ByteBuffer data)
         {
             if (DataRecived != null)
-                DataRecived(id, data);
+                DataRecived(client, data);
         }
 
         public void SendDataTo(int id, ByteBuffer data)
         {
-            Clients[id].stream.BeginWrite(data.ToArray, 0, data.ToArray.Length, null, null);
+            if (Clients[id] != null && Clients[id].socket != null && Clients[id].stream.CanWrite)
+                Clients[id].stream.BeginWrite(data.ToArray, 0, data.ToArray.Length, null, null);
         }
 
         public void SendDataToAll(ByteBuffer data)
@@ -74,13 +75,13 @@ namespace Connection
             for (int i = 0; i < Clients.Length; i++)
             try
             {
-                if (Clients[i].socket != null)
+                if (Clients[i] != null && Clients[i].socket != null && Clients[i].stream.CanWrite)
                     Clients[i].stream.BeginWrite(data.ToArray, 0, data.ToArray.Length, null, null);
             }
             catch (Exception ex)
             {
                 Logger.Error($"Can't send data to client with ID [{i}], {ex}");
-                throw;
+                // throw;
             }
         }
 
@@ -89,8 +90,9 @@ namespace Connection
             for (int i = 0; i < Clients.Length; i++)
             try
             {
-                if (Clients[i].socket != null && Clients[i].ConnectionID != id)
-                    Clients[i].stream.BeginWrite(data.ToArray, 0, data.ToArray.Length, null, null);
+                if (Clients[id] != null && Clients[i].socket != null && Clients[i].stream.CanWrite)
+                    if (Clients[i].ConnectionID != id)
+                        Clients[i].stream.BeginWrite(data.ToArray, 0, data.ToArray.Length, null, null);
             }
             catch (Exception ex)
             {

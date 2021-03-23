@@ -8,7 +8,7 @@ namespace TestServer
     {
         private static ServerTCP server = new ServerTCP();
         
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Logger.Trace("Starting Server...");
 
@@ -30,12 +30,12 @@ namespace TestServer
             } while (t != "quit");
         }
 
-        private static void OnDataRecived(int id, ByteBuffer data)
+        private static void OnDataRecived(SClient client, ByteBuffer data)
         {
             ByteBuffer tData = new ByteBuffer();
             string message = data.ReadString();
-            tData.WriteString($"User: {id}; Message: {message}");
-            server.SendDataToAllExept(id, tData);
+            tData.WriteString($"User: {client.ConnectionID}; Message: {message}");
+            server.SendDataToAllExept(client.ConnectionID, tData);
         }
 
         private static void OnClientConnected(SClient client)
@@ -49,7 +49,7 @@ namespace TestServer
         {
             ByteBuffer data = new ByteBuffer();
             data.WriteString($"Server: User with id {client.ConnectionID} disconnected.");
-            server.SendDataToAll(data);
+            server.SendDataToAllExept(client.ConnectionID, data);
         }
     }
 }
